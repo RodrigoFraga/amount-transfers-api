@@ -14,12 +14,12 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run ()
     {
         $user = User::updateOrcreate([
             'name'     => 'Usuário',
             'email'    => strtolower('user@user.io'),
-            'document'    => '76401429038',
+            'document' => '76401429038',
         ], [
             'password' => bcrypt(123123123)
         ]);
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
         $user2 = User::updateOrcreate([
             'name'     => 'Usuário 2',
             'email'    => strtolower('user2@user.io'),
-            'document'    => '76401429040',
+            'document' => '76401429040',
         ], [
             'password' => bcrypt(123123123)
         ]);
@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
         $store = User::updateOrcreate([
             'name'     => 'Store',
             'email'    => strtolower('store@store.io'),
-            'document'    => '12914027000179',
+            'document' => '12914027000179',
         ], [
             'password' => bcrypt(123123123)
         ]);
