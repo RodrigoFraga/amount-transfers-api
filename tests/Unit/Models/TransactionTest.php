@@ -14,7 +14,6 @@ class TransactionTest extends TestCase
 {
     use DatabaseMigrations;
 
-
     /**
      * Check fillable data.
      *
@@ -53,7 +52,7 @@ class TransactionTest extends TestCase
             'payer_id'         => $payer->id,
             'payee_id'         => $payee->id,
             'amount'           => 15000,
-            'scheduling_date'  => Carbon::now(),
+            'scheduling_date'  => Carbon::now()->format('Y-m-d'),
             'status'           => TransactionEnum::STATUS['scheduled'],
             'transaction_date' => null
         ]);

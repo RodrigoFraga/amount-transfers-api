@@ -4,15 +4,24 @@ namespace App\Models;
 
 use App\Models\Traits\ExtractTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Auditable;
+use Spatie\Permission\Traits\HasRoles;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContracts;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements AuditableContracts
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ExtractTrait;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ExtractTrait, HasApiTokens, HasRoles, Auditable;
+
+    protected $guard_name = 'api';
+
+    protected $appends = ['role'];
 
     /**
      * The attributes that are mass assignable.
@@ -45,8 +54,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getRoleAttribute ()
+    {
+        $roles = $this->roles;
+        if (count($roles) > 0)
+            return strtoupper($roles->first()->name);
+        else
+            return null;
+    }
+
     public function wallet (): morphOne
     {
         return $this->morphOne(Wallet::class, 'personable');
+    }
+
+    public function transactions (): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'payer_id');
     }
 }

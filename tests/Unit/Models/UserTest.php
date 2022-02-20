@@ -37,7 +37,7 @@ class UserTest extends TestCase
     {
         $data = User::factory()->create();
 
-        $this->assertDatabaseHas('users', $data->toArray());
+        $this->assertDatabaseHas('users', $data->makeHidden('role')->toArray());
     }
 
     /**

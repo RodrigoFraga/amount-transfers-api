@@ -17,10 +17,11 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payer_id')->nullable()->constrained('users');
-            $table->foreignId('payee_id')->nullable()->constrained('users');
-            $table->timestamp('scheduling_date');
+            $table->foreignId('payer_id')->constrained('users');
+            $table->foreignId('payee_id')->constrained('users');
+            $table->date('scheduling_date');
             $table->integer('amount');
+            $table->integer('intermediation_amount')->default(0);
             $table->integer('status')->default(TransactionEnum::STATUS['scheduled']);
             $table->timestamp('transaction_date')->nullable();
 

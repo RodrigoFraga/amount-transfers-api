@@ -17,8 +17,11 @@ after install the source code open Terminal to use these command line:
 
 
 ## Packages Used
+### [Laravel Passport](https://laravel.com/docs/8.x/passport).
 
+### [Laravel Permission](https://spatie.be/docs/laravel-permission/v4/prerequisites)
 
+### [Laravel Auditing](http://www.laravel-auditing.com/)
 
 ## License
 

@@ -17,6 +17,7 @@ class Extract extends Model
         'type',
     ];
 
+
     public function personable (): morphTo
     {
         return $this->morphTo();

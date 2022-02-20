@@ -9,8 +9,8 @@ abstract class ExtractEnum
 
 
     const TRANSACTION_TEXT = [
-        'incoming'  => 'Transferência realizada',
-        'outcoming' => 'Transferência recebida',
+        'incoming'  => 'Transferência recebida - ',
+        'outcoming' => 'Transferência envida - ',
 
         'incoming_chargeback'  => 'Transferência estornada',
         'outcoming_chargeback' => 'Transferência estornada',

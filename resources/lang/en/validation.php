@@ -158,6 +158,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'payee_id' => 'payee'
+    ],
 
 ];

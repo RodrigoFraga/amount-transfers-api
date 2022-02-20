@@ -77,13 +77,13 @@ class WalletTest extends TestCase
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 200, 'blocked_balance' => 0]));
 
-        $wallet->decreaseAvailableBalance(100);
+        $wallet->decreaseAvailableBalance(50);
 
-        $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 100, 'blocked_balance' => 0]));
+        $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 150, 'blocked_balance' => 0]));
 
         $wallet->decreaseAvailableBalance(-100);
 
-        $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 0, 'blocked_balance' => 0]));
+        $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 50, 'blocked_balance' => 0]));
 
     }
 
