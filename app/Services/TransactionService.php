@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services;
-
 
 use App\Jobs\TransactionProcessingJob;
 use App\Models\Transaction;
@@ -16,11 +14,6 @@ class TransactionService
     public function model ()
     {
         return Auth::user()->transactions();
-    }
-
-    public function index (array $data)
-    {
-
     }
 
     public function store (array $data): Transaction
