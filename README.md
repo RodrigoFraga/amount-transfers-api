@@ -14,7 +14,8 @@ after install the source code open Terminal to use these command line:
 
 
 ### Features
-
+- Transfer flow between two or more users.
+- Users can cancel a scheduled transaction
 
 ## Packages Used
 ### [Laravel Passport](https://laravel.com/docs/8.x/passport).

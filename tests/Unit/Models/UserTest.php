@@ -52,7 +52,7 @@ class UserTest extends TestCase
 
         $this->expectException(QueryException::class);
 
-        User::factory()->create(['email'=> $data->email]);
+        User::factory()->create(['email' => $data->email]);
     }
 
     /**
@@ -67,7 +67,7 @@ class UserTest extends TestCase
 
         $this->expectException(QueryException::class);
 
-        User::factory()->create(['document'=> $data->document]);
+        User::factory()->create(['document' => $data->document]);
     }
 
     /**
@@ -78,11 +78,18 @@ class UserTest extends TestCase
      */
     public function test_class_has_wallet_method ()
     {
-        $class = new User();
+        $this->assertTrue(method_exists(new User(), 'wallet'));
+    }
 
-        // TODO implementar ou remover
-
-//        $this->assertSame('return_value', $class->Method('wallet'));
+    /**
+     * Test class has transactions method.
+     *
+     * @return void
+     * @test
+     */
+    public function test_class_has_transactions_method ()
+    {
+        $this->assertTrue(method_exists(new User(), 'transactions'));
     }
 
     /**
@@ -93,8 +100,11 @@ class UserTest extends TestCase
      */
     public function test_that_sensitive_data_is_not_being_returned ()
     {
-        $data = User::factory()->create();
+        $hidden = ["password", "remember_token"];
 
-        // TODO implementar ou remover
+        $data   = User::factory()->create();
+
+        $this->assertEquals($data->getHidden(), $hidden);
+
     }
 }

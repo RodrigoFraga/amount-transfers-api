@@ -61,6 +61,7 @@ class TransactionTest extends TestCase
     public function test_return_when_payer_has_no_available_balance ()
     {
         $user = User::factory()->hasWallet()->create();
+        $payee = User::factory()->hasWallet()->create();
 
         $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
         $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
@@ -69,7 +70,7 @@ class TransactionTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => 100]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => 100, 'payee_id' => $payee->id]);
 
         $response->assertStatus(406)
             ->assertJson(['message' => 'Insufficient balance']);
