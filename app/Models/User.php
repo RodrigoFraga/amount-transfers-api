@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\TransactionContracts;
 use App\Models\Traits\ExtractTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContracts;
 
 
-class User extends Authenticatable implements AuditableContracts
+class User extends Authenticatable implements AuditableContracts, TransactionContracts
 {
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ExtractTrait, HasApiTokens, HasRoles, Auditable;
 
@@ -63,11 +64,20 @@ class User extends Authenticatable implements AuditableContracts
             return null;
     }
 
+    /**
+     * @Override
+     * @return MorphOne
+     */
     public function wallet (): morphOne
     {
         return $this->morphOne(Wallet::class, 'personable');
     }
 
+
+    /**
+     * @Override
+     * @return HasMany
+     */
     public function transactions (): HasMany
     {
         return $this->hasMany(Transaction::class, 'payer_id');
