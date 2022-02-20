@@ -3,6 +3,7 @@
 namespace App\Models\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 interface TransactionContracts
@@ -17,8 +18,8 @@ interface TransactionContracts
     /**
      * transactions.
      *
-     * @return HasMany
+     * @return MorphMany
      */
-    public function transactions (): HasMany;
+    public function transactions (): MorphMany;
 
 }

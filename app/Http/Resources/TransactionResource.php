@@ -16,6 +16,8 @@ class TransactionResource extends JsonResource
     public function toArray ($request): array
     {
         return [
+            'user_id'         => $this->user_id,
+            'user_name'       => $this->user->name,
             'scheduling_date' => $this->scheduling_date,
             'payee_id'        => $this->payee_id,
             'amount'          => $this->amount,

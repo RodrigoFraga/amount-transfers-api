@@ -17,8 +17,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('payer_id')->constrained('users');
-            $table->foreignId('payee_id')->constrained('users');
+            $table->morphs('ownerable');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('payer_id')->constrained('wallets');
+            $table->foreignId('payee_id')->constrained('wallets');
             $table->date('scheduling_date');
             $table->integer('amount');
             $table->integer('intermediation_amount')->default(0);

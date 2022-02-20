@@ -5,7 +5,9 @@ namespace Tests\Feature\Http\Controllers\Api;
 use App\Enums\ExtractEnum;
 use App\Enums\TransactionEnum;
 use App\Enums\UserRoles;
+use App\Models\Store;
 use App\Models\User;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Support\Facades\Config;
@@ -33,7 +35,6 @@ class TransactionTest extends TestCase
         $index->assertStatus(401);
     }
 
-
     /**
      * Test if unauthenticated users cannot access the following endpoints for the transaction API
      *
@@ -60,7 +61,7 @@ class TransactionTest extends TestCase
      */
     public function test_return_when_payer_has_no_available_balance ()
     {
-        $user = User::factory()->hasWallet()->create();
+        $user  = User::factory()->hasWallet()->create();
         $payee = User::factory()->hasWallet()->create();
 
         $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
@@ -70,7 +71,7 @@ class TransactionTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => 100, 'payee_id' => $payee->id]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => 100, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(406)
             ->assertJson(['message' => 'Insufficient balance']);
@@ -92,7 +93,7 @@ class TransactionTest extends TestCase
 
         Passport::actingAs($user);
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => 100, 'payee_id' => 5]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => 100, 'payee_id' => -1]);
 
         $response->assertStatus(422)
             ->assertJson([
@@ -148,18 +149,22 @@ class TransactionTest extends TestCase
 
         $amount = 60;
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->id]);
-
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(200)
             ->assertExactJson(['data' => [
                 'scheduling_date' => Carbon::now()->format('Y-m-d'),
-                'payee_id'        => $payee->id,
+                'user_id'         => $user->id,
+                'user_name'       => $user->name,
+                'payee_id'        => $payee->wallet->id,
                 'amount'          => $amount,
                 'status'          => TransactionEnum::STATUS['scheduled']
             ]]);
 
         $this->assertDatabaseHas('transactions', [
+            'user_id'         => $user->id,
+            'payer_id'        => $user->wallet->id,
+            'payee_id'        => $payee->wallet->id,
             'scheduling_date' => Carbon::now()->format('Y-m-d'),
             'amount'          => $amount,
             'status'          => TransactionEnum::STATUS['scheduled']
@@ -179,7 +184,6 @@ class TransactionTest extends TestCase
             'blocked_balance'   => 0,
         ]);
     }
-
 
     /**
      * Test transfer processing with unauthorized
@@ -203,12 +207,14 @@ class TransactionTest extends TestCase
 
         $amount = 150;
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->id]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('transactions', [
-            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'user_id'         => $user->id,
+            'payer_id'        => $user->wallet->id,
+            'payee_id'        => $payee->wallet->id,'scheduling_date' => Carbon::now()->format('Y-m-d'),
             'amount'          => $amount,
             'status'          => TransactionEnum::STATUS['unauthorized']
         ]);
@@ -250,12 +256,14 @@ class TransactionTest extends TestCase
 
         $amount = 150;
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->id]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(200);
 
         $this->assertDatabaseHas('transactions', [
-            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'user_id'         => $user->id,
+            'payer_id'        => $user->wallet->id,
+            'payee_id'        => $payee->wallet->id, 'scheduling_date' => Carbon::now()->format('Y-m-d'),
             'amount'          => $amount,
             'status'          => TransactionEnum::STATUS['unauthorized']
         ]);
@@ -276,11 +284,11 @@ class TransactionTest extends TestCase
     }
 
     /**
-     * Test authorized transfer processing
+     * Test authorized transfer processing between users
      *
      * @return void
      */
-    public function test_authorized_transfer_processing ()
+    public function test_authorized_transfer_processing_between_users ()
     {
 
         $payer = User::factory()->hasWallet(['available_balance' => 1500])->create();
@@ -295,7 +303,7 @@ class TransactionTest extends TestCase
 
         $amount = 300;
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->id]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(200);
 
@@ -360,7 +368,7 @@ class TransactionTest extends TestCase
 
         $amount = 300;
 
-        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->id]);
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
 
         $response->assertStatus(200);
 
@@ -402,4 +410,175 @@ class TransactionTest extends TestCase
             'description'     => ExtractEnum::TRANSACTION_TEXT['incoming'] . $payer->name,
         ]);
     }
+
+    /**
+     * Test authorized transfer processing between user and store
+     *
+     * @return void
+     */
+    public function test_authorized_transfer_processing_between_user_and_store ()
+    {
+
+        $payer = User::factory()->hasWallet(['available_balance' => 1500])->create();
+        $payee = Store::factory()->hasWallet()->create();
+
+        $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
+
+        $payer->assignRole(UserRoles::USER);
+
+        Passport::actingAs($payer);
+
+        $amount = 300;
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('transactions', [
+            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'amount'          => $amount,
+            'status'          => TransactionEnum::STATUS['finalized']
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 1200,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => Store::class,
+            'personable_id'     => $payee->id,
+            'available_balance' => $amount,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('extracts', [
+            'personable_type' => User::class,
+            'personable_id'   => $payer->id,
+            'value'           => $amount,
+            'type'            => ExtractEnum::OUTCOMING,
+            'current_value'   => 1200,
+            'description'     => ExtractEnum::TRANSACTION_TEXT['outcoming'] . $payee->name,
+        ]);
+
+        $this->assertDatabaseHas('extracts', [
+            'personable_type' => Store::class,
+            'personable_id'   => $payee->id,
+            'value'           => $amount,
+            'type'            => ExtractEnum::INCOMING,
+            'current_value'   => $amount,
+            'description'     => ExtractEnum::TRANSACTION_TEXT['incoming'] . $payer->name,
+        ]);
+    }
+
+    /**
+     * Test an unauthorized transfer from store to user
+     *
+     * @return void
+     */
+    public function test_an_unauthorized_transfer_from_store_to_user ()
+    {
+
+        $storeUser = User::factory()->create();
+        $payer = Store::factory()->hasWallet(['available_balance' => 1500])->create(['user_id' => $storeUser->id]);
+        $payee = User::factory()->hasWallet()->create();
+
+        $role = Role::create(['name' => UserRoles::STORE, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
+
+        $storeUser->assignRole(UserRoles::STORE);
+
+        Passport::actingAs($storeUser);
+
+        $amount = 300;
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(403);
+
+        $this->assertDatabaseCount('transactions', 0);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => Store::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 1500,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payee->id,
+            'available_balance' => 0,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseCount('extracts', 0);
+    }
+
+    /**
+     * Test authorized transfer from store to user
+     *
+     * @return void
+     */
+    /*public function test_authorized_transfer_from_store_to_user ()
+    {
+
+        $storeUser = User::factory()->create();
+        $payer = Store::factory()->hasWallet(['available_balance' => 1500])->create(['user_id' => $storeUser->id]);
+        $payee = User::factory()->hasWallet()->create();
+
+        $role = Role::create(['name' => UserRoles::STORE, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
+
+        $storeUser->assignRole(UserRoles::STORE);
+
+        Passport::actingAs($storeUser);
+
+        $amount = 300;
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('transactions', [
+            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'amount'          => $amount,
+            'status'          => TransactionEnum::STATUS['finalized']
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => Store::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 1200,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payee->id,
+            'available_balance' => $amount,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('extracts', [
+            'personable_type' => Store::class,
+            'personable_id'   => $payer->id,
+            'value'           => $amount,
+            'type'            => ExtractEnum::OUTCOMING,
+            'current_value'   => 1200,
+            'description'     => ExtractEnum::TRANSACTION_TEXT['outcoming'] . $payee->name,
+        ]);
+
+        $this->assertDatabaseHas('extracts', [
+            'personable_type' => User::class,
+            'personable_id'   => $payee->id,
+            'value'           => $amount,
+            'type'            => ExtractEnum::INCOMING,
+            'current_value'   => $amount,
+            'description'     => ExtractEnum::TRANSACTION_TEXT['incoming'] . $payer->name,
+        ]);
+    }*/
 }

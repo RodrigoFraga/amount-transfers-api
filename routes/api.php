@@ -22,6 +22,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers\Auth'], f
     });
 });
 
-Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => 'auth:api'], function () {
+Route::group(['namespace' => 'App\Http\Controllers', 'middleware' => ['auth:api', 'set_model']], function () {
     Route::resource('transaction', 'TransactionController')->only(['index', 'store']);
 });

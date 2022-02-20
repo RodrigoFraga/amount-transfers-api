@@ -12,6 +12,10 @@ after install the source code open Terminal to use these command line:
 - Run `php artisan serve` command.
 - Run `php artisan queue:listen` command.
 
+### Run test
+- Rename or copy `.env.testing.example` file to `.env.testing` and write required database information.
+- Run `php artisan test` command.
+
 
 ### Features
 - Transfer flow between two or more users.

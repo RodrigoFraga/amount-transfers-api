@@ -13,7 +13,7 @@ class TransactionValidator
     public static function validate ($data)
     {
         $validator = Validator::make($data, [
-            'payee_id'        => 'required|numeric|exists:users,id',
+            'payee_id'        => 'required|numeric|exists:wallets,id',
             'scheduling_date' => 'required|date|after_or_equal:' . date('Y-m-d'),
             'amount'          => 'required|numeric|min:1'
         ]);

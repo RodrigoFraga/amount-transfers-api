@@ -28,16 +28,6 @@ class TransactionController extends Controller
         $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index ()
-    {
-        //
-    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -48,23 +38,15 @@ class TransactionController extends Controller
     public function store (Request $request)
     {
         try {
-            $data = $this->service->store($request->all());
+            $data = $this->service->setModelType($request->model_type)->setModelId($request->model_id)->store($request->all());
 
             return new TransactionResource($data);
         } catch (ValidationException $v) {
             return $this->error($v->errors(), $v->status);
+        } catch (\BadMethodCallException $e) {
+            return $this->error($e->getMessage(), 403);
         }
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Transaction $transaction
-     * @return Response
-     */
-    public function show (Transaction $transaction)
-    {
-        //
-    }
 }

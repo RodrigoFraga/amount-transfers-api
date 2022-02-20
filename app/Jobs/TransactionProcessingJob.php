@@ -42,8 +42,8 @@ class TransactionProcessingJob implements ShouldQueue
         DB::transaction(function () {
             $this->transaction->transaction_date = Carbon::now();
 
-            $walletPayer = $this->transaction->payer->wallet;
-            $walletPayee = $this->transaction->payee->wallet;
+            $walletPayer = $this->transaction->payer;
+            $walletPayee = $this->transaction->payee;
 
 
             if (RequestAuthorizeTransaction::check()) {
@@ -53,16 +53,16 @@ class TransactionProcessingJob implements ShouldQueue
                 $walletPayer->decreaseBlockedBalance($this->transaction->amount);
 
                 // Create extracts
-                $this->transaction->payer->extracts()->create([
+                $this->transaction->payer->personable->extracts()->create([
                     'type'          => ExtractEnum::OUTCOMING,
-                    'description'   => ExtractEnum::TRANSACTION_TEXT['outcoming'] . $this->transaction->payee->name,
+                    'description'   => ExtractEnum::TRANSACTION_TEXT['outcoming'] . $this->transaction->payee->personable->name,
                     'value'         => $this->transaction->amount,
                     'current_value' => $walletPayer->available_balance
                 ]);
 
-                $this->transaction->payee->extracts()->create([
+                $this->transaction->payee->personable->extracts()->create([
                     'type'          => ExtractEnum::INCOMING,
-                    'description'   => ExtractEnum::TRANSACTION_TEXT['incoming'] . $this->transaction->payer->name,
+                    'description'   => ExtractEnum::TRANSACTION_TEXT['incoming'] . $this->transaction->payer->personable->name,
                     'value'         => $this->transaction->amount,
                     'current_value' => $walletPayee->available_balance
                 ]);

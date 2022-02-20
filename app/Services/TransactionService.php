@@ -9,13 +9,24 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
 class TransactionService
 {
+    use ServiceTrait;
+
+
+    /**
+     * @return mixed
+     */
     public function model ()
     {
-        return Auth::user()->transactions();
+        return $this->model_type::findOrFail($this->model_id);
     }
 
+    /**
+     * @param array $data
+     * @return Transaction
+     */
     public function store (array $data): Transaction
     {
 
@@ -23,16 +34,20 @@ class TransactionService
 
             $data['scheduling_date'] = $data['scheduling_date'] ?? Carbon::now();
 
+            $data['payer_id'] = $this->model()->wallet->id;
+
             TransactionValidator::validate($data);
 
-            $transaction = $this->model()->make($data);
+            $transaction = $this->model()->transactions()->make($data);
+
+            $transaction->user_id = Auth::id();
 
             /* check available balance */
             $transaction->checkBalance();
 
             $transaction->save();
 
-            $wallet = $transaction->payer->wallet;
+            $wallet = $transaction->payer;
 
             $wallet->decreaseAvailableBalance($transaction->amount);
             $wallet->incrementBlockedBalance($transaction->amount);

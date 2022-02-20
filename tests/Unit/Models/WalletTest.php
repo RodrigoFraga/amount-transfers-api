@@ -48,7 +48,7 @@ class WalletTest extends TestCase
      */
     public function test_method_to_increment_available_balance ()
     {
-        $data = Wallet::factory()->create();
+        $data   = Wallet::factory()->create();
         $wallet = Wallet::find($data->id);
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 0, 'blocked_balance' => 0]));
@@ -72,7 +72,7 @@ class WalletTest extends TestCase
      */
     public function test_method_to_decrease_available_balance ()
     {
-        $data = Wallet::factory()->create(['available_balance' => 200, 'blocked_balance' => 0]);
+        $data   = Wallet::factory()->create(['available_balance' => 200, 'blocked_balance' => 0]);
         $wallet = Wallet::find($data->id);
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 200, 'blocked_balance' => 0]));
@@ -96,7 +96,7 @@ class WalletTest extends TestCase
      */
     public function test_method_to_increment_blocked_balance ()
     {
-        $data = Wallet::factory()->create();
+        $data   = Wallet::factory()->create();
         $wallet = Wallet::find($data->id);
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 0, 'blocked_balance' => 0]));
@@ -120,7 +120,7 @@ class WalletTest extends TestCase
      */
     public function test_method_to_decrease_blocked_balance ()
     {
-        $data = Wallet::factory()->create(['available_balance' => 0, 'blocked_balance' => 200]);
+        $data   = Wallet::factory()->create(['available_balance' => 0, 'blocked_balance' => 200]);
         $wallet = Wallet::find($data->id);
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 0, 'blocked_balance' => 200]));
@@ -133,6 +133,17 @@ class WalletTest extends TestCase
 
         $this->assertDatabaseHas('wallets', array_merge($data->toArray(), ['available_balance' => 0, 'blocked_balance' => 0]));
 
+    }
+
+    /**
+     * Test if the class has a personable method
+     *
+     * @return void
+     * @test
+     */
+    public function test_if_the_class_has_a_personable_method ()
+    {
+        $this->assertTrue(method_exists(new Wallet(), 'personable'));
     }
 
 }

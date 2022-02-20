@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class WalletFactory extends Factory
@@ -13,9 +14,11 @@ class WalletFactory extends Factory
      */
     public function definition (): array
     {
+        $user = User::factory()->create();
+
         return [
-            'personable_type' => $this->faker->name(),
-            'personable_id'   => rand(1, 100),
+            'personable_type' => get_class($user),
+            'personable_id'   => $user->id
         ];
     }
 }

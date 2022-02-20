@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Models\Contracts\TransactionContracts;
 use App\Models\Traits\ExtractTrait;
+use App\Models\Traits\WalletTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,7 +20,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContracts;
 
 class User extends Authenticatable implements AuditableContracts, TransactionContracts
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ExtractTrait, HasApiTokens, HasRoles, Auditable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes, ExtractTrait, HasApiTokens, HasRoles, Auditable, WalletTrait;
 
     protected $guard_name = 'api';
 
@@ -64,22 +66,18 @@ class User extends Authenticatable implements AuditableContracts, TransactionCon
             return null;
     }
 
-    /**
-     * @Override
-     * @return MorphOne
-     */
-    public function wallet (): morphOne
+    public function store (): HasOne
     {
-        return $this->morphOne(Wallet::class, 'personable');
+        return $this->hasOne(Store::class);
     }
 
-
     /**
      * @Override
-     * @return HasMany
+     * @return MorphMany
      */
-    public function transactions (): HasMany
+    public function transactions (): MorphMany
     {
-        return $this->hasMany(Transaction::class, 'payer_id');
+        return $this->morphMany(Transaction::class, 'ownerable');
+
     }
 }

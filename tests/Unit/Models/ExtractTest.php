@@ -23,4 +23,15 @@ class ExtractTest extends TestCase
         $this->assertEqualsCanonicalizing($fillableTest, (new Extract())->getFillable());
     }
 
+    /**
+     * Test if the class has a person method
+     *
+     * @return void
+     * @test
+     */
+    public function test_if_the_class_has_a_person_method ()
+    {
+        $this->assertTrue(method_exists(new Extract(), 'personable'));
+    }
+
 }
