@@ -159,7 +159,8 @@ return [
     */
 
     'attributes' => [
-        'payee_id' => 'payee'
+        'wallet_payer_id' => 'wallet payer',
+        'wallet_payee_id' => 'wallet payee'
     ],
 
 ];

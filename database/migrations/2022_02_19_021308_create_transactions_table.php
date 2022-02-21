@@ -1,7 +1,6 @@
 <?php
 
 use App\Enums\TransactionEnum;
-use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,8 +18,8 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->morphs('ownerable');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('payer_id')->constrained('wallets');
-            $table->foreignId('payee_id')->constrained('wallets');
+            $table->foreignId('wallet_payer_id')->constrained('wallets');
+            $table->foreignId('wallet_payee_id')->constrained('wallets');
             $table->date('scheduling_date');
             $table->integer('amount');
             $table->integer('intermediation_amount')->default(0);

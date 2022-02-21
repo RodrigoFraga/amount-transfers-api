@@ -34,7 +34,7 @@ class TransactionService
 
             $data['scheduling_date'] = $data['scheduling_date'] ?? Carbon::now();
 
-            $data['payer_id'] = $this->model()->wallet->id;
+            $data['wallet_payer_id'] = $this->model()->wallet->id;
 
             TransactionValidator::validate($data);
 

@@ -19,7 +19,7 @@ class TransactionResource extends JsonResource
             'user_id'         => $this->user_id,
             'user_name'       => $this->user->name,
             'scheduling_date' => $this->scheduling_date,
-            'payee_id'        => $this->payee_id,
+            'wallet_payee_id' => $this->wallet_payee_id,
             'amount'          => $this->amount,
             'status'          => $this->status,
         ];

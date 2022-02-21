@@ -23,7 +23,7 @@ class TransactionTest extends TestCase
      */
     public function test_same_fillable ()
     {
-        $fillableTest = ['payer_id', 'payee_id', 'amount', 'scheduling_date', 'description'];
+        $fillableTest = ['wallet_payer_id', 'wallet_payee_id', 'amount', 'scheduling_date', 'description'];
 
         $fillable = (new Transaction())->getFillable();
 
@@ -45,8 +45,8 @@ class TransactionTest extends TestCase
             'ownerable_type'  => get_class($payer),
             'ownerable_id'    => $payer->id,
             'user_id'         => $payer->id,
-            'payer_id'        => $payer->wallet->id,
-            'payee_id'        => $payee->wallet->id,
+            'wallet_payer_id'        => $payer->wallet->id,
+            'wallet_payee_id'        => $payee->wallet->id,
             'amount'          => 15000,
             'scheduling_date' => Carbon::now()
         ]);
@@ -56,8 +56,8 @@ class TransactionTest extends TestCase
             'ownerable_type'   => get_class($payer),
             'ownerable_id'     => $payer->id,
             'user_id'          => $payer->id,
-            'payer_id'         => $payer->wallet->id,
-            'payee_id'         => $payee->wallet->id,
+            'wallet_payer_id'         => $payer->wallet->id,
+            'wallet_payee_id'         => $payee->wallet->id,
             'amount'           => 15000,
             'scheduling_date'  => Carbon::now()->format('Y-m-d'),
             'status'           => TransactionEnum::STATUS['scheduled'],
@@ -79,8 +79,8 @@ class TransactionTest extends TestCase
         $this->expectException(QueryException::class);
 
         Transaction::factory()->create([
-            'payer_id'        => $payer->id,
-            'payee_id'        => null,
+            'wallet_payer_id'        => $payer->id,
+            'wallet_payee_id'        => null,
             'amount'          => null,
             'scheduling_date' => Carbon::now()->format('Y-m-d')
         ]);
