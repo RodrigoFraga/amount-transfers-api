@@ -6,7 +6,6 @@ use App\Models\Contracts\TransactionContracts;
 use App\Models\Traits\ExtractTrait;
 use App\Models\Traits\WalletTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,8 +13,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use OwenIt\Auditing\Auditable;
-use Spatie\Permission\Traits\HasRoles;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContracts;
+use Spatie\Permission\Traits\HasRoles;
 
 
 class User extends Authenticatable implements AuditableContracts, TransactionContracts

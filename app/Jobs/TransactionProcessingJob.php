@@ -67,20 +67,21 @@ class TransactionProcessingJob implements ShouldQueue
                     'current_value' => $walletPayee->available_balance
                 ]);
 
+                $this->transaction->save();
 
                 // Notify receipt of transaction
                 dispatch(new NotifyTransactionSuccessfulJob($this->transaction));
 
-            } else {
-
-                $walletPayer->incrementAvailableBalance($this->transaction->amount);
-                $walletPayer->decreaseBlockedBalance($this->transaction->amount);
-
-                $this->transaction->status = TransactionEnum::STATUS['unauthorized'];
-
-                // Notify payer about unauthorized transaction
-
+                return;
             }
+
+            $walletPayer->incrementAvailableBalance($this->transaction->amount);
+            $walletPayer->decreaseBlockedBalance($this->transaction->amount);
+
+            $this->transaction->status = TransactionEnum::STATUS['unauthorized'];
+
+            // Notify payer about unauthorized transaction
+
 
             $this->transaction->save();
 

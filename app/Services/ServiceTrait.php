@@ -21,23 +21,23 @@ trait ServiceTrait
     protected $model_type;
 
     /**
-     * @param $model_id
+     * @param $modelId
      * @return $this
      */
-    public function setModelId ($model_id)
+    public function setModelId ($modelId)
     {
-        $this->model_id = $model_id;
+        $this->model_id = $modelId;
 
         return $this;
     }
 
     /**
-     * @param $model_type
+     * @param $modelType
      * @return $this
      */
-    public function setModelType ($model_type)
+    public function setModelType ($modelType)
     {
-        $this->model_type = $model_type;
+        $this->model_type = $modelType;
 
         return $this;
     }

@@ -1,6 +1,7 @@
 {
     "private": true,
     "scripts": {
+        "phpmd-start": "vendor/bin/phpmd app text cleancode,codesize,controversial,design,naming,unusedcode",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",

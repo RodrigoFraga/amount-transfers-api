@@ -18,10 +18,10 @@ class Controller extends BaseController
      *
      * @param string|array $message
      * @param int $code
-     * @param \Exception|null $e
+     * @param \Exception|null $exception
      * @return JsonResponse
      */
-    protected function error( $message = '', int $code = 500, \Exception $e = null): JsonResponse
+    protected function error( $message = '', int $code = 500, \Exception $exception = null): JsonResponse
     {
         $response = [ 'error' => true ];
 
@@ -31,18 +31,18 @@ class Controller extends BaseController
 
         $response['message'] = [ $message ];
 
-        if ($e) {
+        if ($exception) {
             $error =  [
-                'code'    => $e->getCode(),
-                'file'    => $e->getFile(),
-                'line'    => $e->getLine(),
+                'code'    => $exception->getCode(),
+                'file'    => $exception->getFile(),
+                'line'    => $exception->getLine(),
             ];
 
             if (env('APP_ENV') == 'local') {
                 $response['trace'] = $error;
             }
 
-            Log::error($e->getMessage(), $error);
+            Log::error($exception->getMessage(), $error);
         }
 
         return response()->json($response, $code);

@@ -34,11 +34,11 @@ class Transaction extends Model
 
     public function checkBalance ()
     {
-        $available_balance = $this->payer->available_balance;
+        $availableBalance = $this->payer->available_balance;
 
-        $transfer_amount = $this->amount + $this->intermediation_amount;
+        $transferAmount = $this->amount + $this->intermediation_amount;
 
-        if ($transfer_amount > $available_balance) {
+        if ($transferAmount > $availableBalance) {
             abort(406, 'Insufficient balance');
         }
     }
