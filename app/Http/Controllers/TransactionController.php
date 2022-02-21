@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TransactionResource;
-use App\Models\Transaction;
 use App\Services\TransactionService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 class TransactionController extends Controller
@@ -44,7 +42,7 @@ class TransactionController extends Controller
         } catch (ValidationException $v) {
             return $this->error($v->errors(), $v->status);
         } catch (\BadMethodCallException $e) {
-            return $this->error($e->getMessage(), 403);
+            return $this->error('Resource unavailable', 403);
         }
 
     }

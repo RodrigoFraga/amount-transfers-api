@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\UserRoles;
+use App\Models\Store;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,7 +18,7 @@ class UserSeeder extends Seeder
     public function run ()
     {
         $user = User::updateOrcreate([
-            'name'     => 'Usuário',
+            'name'     => 'Usuário 1',
             'email'    => strtolower('user@user.io'),
             'document' => '76401429038',
         ], [
@@ -33,10 +34,10 @@ class UserSeeder extends Seeder
         ], [
             'password' => bcrypt(123123123)
         ]);
-        $user2->wallet()->create();
+//        $user2->wallet()->create();
 
 
-        $store = User::updateOrcreate([
+        $userStore = User::updateOrcreate([
             'name'     => 'Store',
             'email'    => strtolower('store@store.io'),
             'document' => '12914027000179',
@@ -44,11 +45,13 @@ class UserSeeder extends Seeder
             'password' => bcrypt(123123123)
         ]);
 
+        $store = Store::factory()->create(['user_id' => $userStore->id]);
+
         $store->wallet()->create();
 
 
         $user->assignRole(UserRoles::USER);
         $user2->assignRole(UserRoles::USER);
-        $store->assignRole(UserRoles::STORE);
+        $userStore->assignRole(UserRoles::STORE);
     }
 }

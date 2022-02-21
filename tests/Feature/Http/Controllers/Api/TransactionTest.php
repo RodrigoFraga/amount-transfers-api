@@ -496,7 +496,11 @@ class TransactionTest extends TestCase
 
         $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
 
-        $response->assertStatus(403);
+        $response->assertStatus(403)
+            ->assertJson([
+                'error'   => true,
+                'message' => [['error' => ['Resource unavailable']]]
+            ]);
 
         $this->assertDatabaseCount('transactions', 0);
 

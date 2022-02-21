@@ -1,0 +1,746 @@
+{
+	"info": {
+		"_postman_id": "ae6f7e60-9db2-49b0-ad24-d6734fdae0f9",
+		"name": "AmountTransfers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set(\"ACCESS_TOKEN\", res.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"user@user.io\",\r\n    \"password\": \"123123123\",\r\n    \"remember_me\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/login",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"user@user.io\",\r\n    \"password\": \"123123123\",\r\n    \"remember_me\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/login",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:26:43 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:26:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjU4M2M4Zjg4OGQ4NWE5YThiZjNjYzA3MmFmYTkyOGVmMjU5NzE3ZmFmY2QyZGI5ZjgzOTYyYTFiZmUzYjY5OGEwYTgwNDk1Yjk1OWU4NjMiLCJpYXQiOjE2NDUzMzQ4MDMuODM4MDc0LCJuYmYiOjE2NDUzMzQ4MDMuODM4MDgzLCJleHAiOjE2NzY4NzA4MDMuODIzNDUxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZVIkVuKi7XwtKVTecLdl3sUWzQ_8BJ9esE9p7OBMM4USWB3qZXzOhE4QTGBU9F5hiNi4nL3xW6kMtO9v3fsox7h2H93eP2Wr9k5VgvERYpgtTcf28Q9XMXgnlMqsnCI869GNBb46cTQ2xt2Zj7T2hxXkXD8ZUryKvcuXxFV-6GIChJQ6SkRJXnU8u2lkH25vGtPAUW8xGvk_VEvPDof-CGmjEA4OC6YO9gsEGrFB4jc8De0Ei4Q8AlP2EGrrd35Ck4Usaf0uC1_SdPRMgNkyv2qQ1k20mTfkgpB3TJ0yjnBPUXrYRVfFALnJ5exLjBbVOMyy6I2VKqdBTyj3GomBqZqPi4x89KfSM_IHozSuLSsE82vmtro2ldz95ZHPCnG1mqF-rKEXI5LYeN0EfjUjTCE8EY8IzGVxxtTK2ypEVg-fT_mnzS7WpQESvvmSF3I98FP5BtA-59aLZHLEbqhN8VSRdPv1sn7qkoaT-l0P5zQifWfSO9_j1N0S6LhenQTcvChojW_If7kMZT7_U5Q1Ttks3LIOE7EeQBjKCaFWDpLRu-Wf3gHgMAcWSIoF1Vxj6LyyteaBZ77GGRqFdhOqIVFW9M7U0a_cSZGkRv2e80uMK1q_YEE1OXFgxGVr1s1UIyi2nl82LgGWQNc9VyHXBGRHvIzeRsRq0DbD1TXJBTQ\",\n    \"token_type\": \"Bearer\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Usuário\",\n        \"role\": \"USER\",\n        \"email\": \"user@user.io\",\n        \"document\": \"76401429038\",\n        \"permissions\": [\n            \"transfer:store\"\n        ]\n    },\n    \"expires_at\": \"2023-02-20 05:26:43\"\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set(\"ACCESS_TOKEN\", '');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/logout",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "create transaction",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ACCESS_TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 500,\r\n    \"wallet_payee_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/transaction",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"transaction"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "transfer from user to store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 500,\r\n    \"wallet_payee_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:54:49 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:54:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"user_id\": 1,\n        \"user_name\": \"Usuário 1\",\n        \"scheduling_date\": \"2022-02-21\",\n        \"wallet_payee_id\": 2,\n        \"amount\": 500,\n        \"status\": 0\n    }\n}"
+						},
+						{
+							"name": "transfer from user to user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payee_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:43:23 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:43:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"user_id\": 1,\n        \"user_name\": \"Usuário 1\",\n        \"scheduling_date\": \"2022-02-21\",\n        \"wallet_payee_id\": 2,\n        \"amount\": 100,\n        \"status\": 1\n    }\n}"
+						},
+						{
+							"name": "Unauthenticated",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payer_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:38:13 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:38:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payee_id\": 200\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:40:21 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:40:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"message\": [\n        {\n            \"wallet_payee_id\": [\n                \"The selected wallet payee is invalid.\"\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Insufficient balance",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payee_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:41:53 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:41:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Insufficient balance\"\n}"
+						},
+						{
+							"name": "403 store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payee_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:46:54 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:46:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"User does not have the right permissions.\"\n}"
+						},
+						{
+							"name": "Resource unavailable to Store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"wallet_payee_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:53:03 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 21 Feb 2022 00:53:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"message\": [\n        {\n            \"error\": [\n                \"Resource unavailable\"\n            ]\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.upsert({",
+					"    key: 'Accept',",
+					"    value: 'application/json'",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ACCESS_TOKEN",
+			"value": ""
+		}
+	]
+}
