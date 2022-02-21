@@ -38,6 +38,7 @@ after install the source code open Terminal to use these command line:
 - [Test planning](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/test_planning.pdf)
 - [Transaction Flow](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/transaction_flow.drawio.xml)
 - [Diagram](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/diagram.drawio.xml)
+- [Architecture](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/architecture.drawio.xml)
 
 ## License
 
