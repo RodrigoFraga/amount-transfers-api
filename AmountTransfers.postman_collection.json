@@ -1,0 +1,500 @@
+{
+	"info": {
+		"_postman_id": "ae6f7e60-9db2-49b0-ad24-d6734fdae0f9",
+		"name": "AmountTransfers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"user@user.io\",\r\n    \"password\": \"123123123\",\r\n    \"remember_me\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/login",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"login\": \"user@user.io\",\r\n    \"password\": \"123123123\",\r\n    \"remember_me\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/login",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:26:43 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:26:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "57"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMjU4M2M4Zjg4OGQ4NWE5YThiZjNjYzA3MmFmYTkyOGVmMjU5NzE3ZmFmY2QyZGI5ZjgzOTYyYTFiZmUzYjY5OGEwYTgwNDk1Yjk1OWU4NjMiLCJpYXQiOjE2NDUzMzQ4MDMuODM4MDc0LCJuYmYiOjE2NDUzMzQ4MDMuODM4MDgzLCJleHAiOjE2NzY4NzA4MDMuODIzNDUxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZVIkVuKi7XwtKVTecLdl3sUWzQ_8BJ9esE9p7OBMM4USWB3qZXzOhE4QTGBU9F5hiNi4nL3xW6kMtO9v3fsox7h2H93eP2Wr9k5VgvERYpgtTcf28Q9XMXgnlMqsnCI869GNBb46cTQ2xt2Zj7T2hxXkXD8ZUryKvcuXxFV-6GIChJQ6SkRJXnU8u2lkH25vGtPAUW8xGvk_VEvPDof-CGmjEA4OC6YO9gsEGrFB4jc8De0Ei4Q8AlP2EGrrd35Ck4Usaf0uC1_SdPRMgNkyv2qQ1k20mTfkgpB3TJ0yjnBPUXrYRVfFALnJ5exLjBbVOMyy6I2VKqdBTyj3GomBqZqPi4x89KfSM_IHozSuLSsE82vmtro2ldz95ZHPCnG1mqF-rKEXI5LYeN0EfjUjTCE8EY8IzGVxxtTK2ypEVg-fT_mnzS7WpQESvvmSF3I98FP5BtA-59aLZHLEbqhN8VSRdPv1sn7qkoaT-l0P5zQifWfSO9_j1N0S6LhenQTcvChojW_If7kMZT7_U5Q1Ttks3LIOE7EeQBjKCaFWDpLRu-Wf3gHgMAcWSIoF1Vxj6LyyteaBZ77GGRqFdhOqIVFW9M7U0a_cSZGkRv2e80uMK1q_YEE1OXFgxGVr1s1UIyi2nl82LgGWQNc9VyHXBGRHvIzeRsRq0DbD1TXJBTQ\",\n    \"token_type\": \"Bearer\",\n    \"user\": {\n        \"id\": 1,\n        \"name\": \"Usuário\",\n        \"role\": \"USER\",\n        \"email\": \"user@user.io\",\n        \"document\": \"76401429038\",\n        \"permissions\": [\n            \"transfer:store\"\n        ]\n    },\n    \"expires_at\": \"2023-02-20 05:26:43\"\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiZjA1MzAxNDRiN2YxNDZhYzFkNjYyMDRjNDNlNWM5NzA5YTBmZDEwMTFiNTllM2NhYmQxNTdmMDBiMjE1YzgxMTdkNWQ2ZGVkNmUzYjFlYWEiLCJpYXQiOjE2NDUzMzQ5MTYuODk4NzkyLCJuYmYiOjE2NDUzMzQ5MTYuODk4Nzk4LCJleHAiOjE2NzY4NzA5MTYuODkwODg0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.DX6t5ZtNokcXprq0-oBH4OBh3YyCpTE0CXtYvye4bNXjvVDfs-GVAk0bFU9rRPg99_6t2qF_VlhvyaiMRhtRwP5AmiRbtiUCcO_4TAmcj-KrPh0_9_qeEFKC8RWEV06-QmO30UXx6e_MyYGgCDJEyX2COW1si_I9qeuH2o2V-LKMvJHFyry0GyhAsoe2ZcvyWrDr_SJ_k83pUMZfRoJB-poQqFGlYuHKWuWe7THLCmzvSXBygxIc6ureBG7oPMZtHnkxkbi3tOnTy9GyZL622rVVl9eutHrxiL-H4EG_zkxNTBP4_ksPRzKSZzhPVuyXuxP6DOBVtxjiG1qMPheuZAAQm1fCnSmF9ae52GbctmZp8ccJkJ8_ABZKcyd9ELTILnW5Mcxa3RgXGVahm2pH0m6clOW0wpCQl2FyrbOs3Itk30-Rdmf2FAyPtXSLn8l7Aq706wVf_YfgTyuOtS6LEXY7rMblXshWyvT1kSC3eq6gPexvg8n9mvXhHhQqPw1QIgNtUro4swixzWbvX70kxEeBJHfWHryhles_BGzRXiiHchICOqYWH2sewOUoVx1Gp3oJWMBF9H7l1Xq6wM2dpWfTCSutwWTPvnMX8z7gZWZY3TUdTGDvSD0DHm7KWp4pdq71yFuW4FONB3A2pg5oUuTkYymd8tFeaJBEUbKI_xE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/logout",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiNzMxZGMxMjVmNzJkYzE0ODU1YWNlYjZhODcwNDVkZTIzODg5YjhiMzRhYzM0ODY0ZDk3MmZhNTNlMjVlMDI3ODc3YmZlZDRhZjZkNTdlNWIiLCJpYXQiOjE2NDUzNjUxODAuNTc2NDA3LCJuYmYiOjE2NDUzNjUxODAuNTc2NDE3LCJleHAiOjE2NzY5MDExODAuNTYzMzk0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.jIeW6Vi7sVCCGG2_qSovAkHwakDWV8ZluLDxioQmL43uLlFVu8sIJtagnFUx0d00RcLNCRdlN9aICxBDAMyqXorYzEat-sH1qB3YV00r5sqdnmBF3SSzxq1mF3zbSb8q82r6Dj371YCopRzgEnE4TSxGVNgcpncih6r3ofEdbWsqoWRmdHDmbWbktO0jZllMWp5I6wDAHTDxzPlnwZCY22v01uQJ2yYobMWz493I__9ahfl-Tw7b0vuF2bJQVLXoFcIkHWe5DQXlRVd3x38mJSE3PyBNilLDtvXuFKCfjxPrdC3G6VEA90M3ZTPVMBjQcKoLhxigKdjNO_PVxZME6ynLC7ox1ARTlPqgjDixnIOhqNscWdtaJMEmECvyWfDQumgbWex_bCQ8TGBEMhO2Te0rkpNsiWl67hqCzXjV29Amh8cm_V5CDh-_T17Ish7lm5JCQR2l_8gKneeFTwuhzlrLpmvu7xgOWH3s3QUqgFOsIz4KYRP6_Ezf4ieOm-olsREOyWFlDGUAxg2CT-exoDPUSuHOfNo1z1vaMqPDkB6aDbIqnBRLx3Mt-1qC3WY_S31B69RqTO26iF25YtStpV8kHzx4nwvBc8TBmfGes1ZseJxzm1czxjzsL4z9f7VAc71-xH_owwgDJYTgrOoI25ZY9-Sok0R17olay2J4x9c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 100,\r\n    \"payee_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/transaction",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"transaction"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Unauthenticated",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"payee_id\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:03:39 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:03:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"payee_id\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Unprocessable Content",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:29:59 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 05:29:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": true,\n    \"message\": [\n        {\n            \"payee_id\": [\n                \"The selected payee is invalid.\"\n            ]\n        }\n    ]\n}"
+						},
+						{
+							"name": "Insufficient balance",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"payee_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 13:51:14 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 13:51:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "58"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Insufficient balance\"\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 100,\r\n    \"payee_id\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/transaction",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"transaction"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 13:53:20 GMT"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Feb 2022 13:53:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/7.4.11"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "X-RateLimit-Limit",
+									"value": "60"
+								},
+								{
+									"key": "X-RateLimit-Remaining",
+									"value": "59"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"scheduling_date\": \"2022-02-20\",\n        \"payee_id\": 2,\n        \"amount\": 100,\n        \"status\": 1\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.headers.upsert({",
+					"    key: 'Accept',",
+					"    value: 'application/json'",
+					"});"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
