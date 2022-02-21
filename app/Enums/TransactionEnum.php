@@ -7,8 +7,6 @@ namespace App\Enums;
  */
 abstract class TransactionEnum
 {
-
-
     /**
      * Transaction status
      */

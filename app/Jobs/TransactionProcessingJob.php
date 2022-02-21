@@ -35,7 +35,6 @@ class TransactionProcessingJob implements ShouldQueue
      */
     public function handle ()
     {
-
         // Check if the transfer has already been processed
         if (!is_null($this->transaction->transaction_date) and TransactionEnum::STATUS['scheduled']) return;
 
@@ -84,7 +83,6 @@ class TransactionProcessingJob implements ShouldQueue
 
 
             $this->transaction->save();
-
         });
     }
 }

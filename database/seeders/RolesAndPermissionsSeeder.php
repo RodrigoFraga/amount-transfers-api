@@ -27,8 +27,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $usersPermissions = [];
 
         $usersPermissions[] = Permission::updateOrCreate(['name' => 'transfer:store'], array_merge($guard_api, ['description' => 'Realizar Transfência']));
+        $usersPermissions[] = Permission::updateOrCreate(['name' => 'transfer:list'], array_merge($guard_api, ['description' => 'Listar Transfência']));
 
-        $roleUser->givePermissionTo( $usersPermissions);
+        $roleUser->givePermissionTo($usersPermissions);
 
     }
 }

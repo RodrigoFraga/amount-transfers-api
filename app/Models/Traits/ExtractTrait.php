@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 trait ExtractTrait
 {
-
     /**
      * Get the extracts.
      */

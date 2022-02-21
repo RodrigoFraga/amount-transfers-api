@@ -14,13 +14,20 @@ class TransactionService
 {
     use ServiceTrait;
 
-
     /**
      * @return mixed
      */
     public function model ()
     {
         return $this->model_type::findOrFail($this->model_id);
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index ()
+    {
+        return $this->model()->transactions()->get();
     }
 
     /**

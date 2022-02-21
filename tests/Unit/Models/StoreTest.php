@@ -20,7 +20,7 @@ class StoreTest extends TestCase
      */
     public function test_same_fillable ()
     {
-        $fillableTest = ['name','legal_name', 'email', 'document',];
+        $fillableTest = ['name', 'legal_name', 'email', 'document',];
 
         $fillable = (new Store())->getFillable();
 

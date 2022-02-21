@@ -9,7 +9,6 @@ trait ServiceTrait
      */
     abstract function model ();
 
-
     /**
      * @var
      */

@@ -77,6 +77,5 @@ class User extends Authenticatable implements AuditableContracts, TransactionCon
     public function transactions (): MorphMany
     {
         return $this->morphMany(Transaction::class, 'ownerable');
-
     }
 }

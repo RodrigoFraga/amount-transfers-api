@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Http;
  */
 class Notifier
 {
-
     /**
      * @return void
      */
@@ -21,7 +20,6 @@ class Notifier
         if ($response->failed()) {
             abort(400, 'Failed to communicate with Notifier api');
         }
-
     }
 
 }

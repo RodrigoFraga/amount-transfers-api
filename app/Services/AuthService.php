@@ -12,7 +12,6 @@ use Illuminate\Validation\ValidationException;
 
 class AuthService
 {
-
     /**
      * Login user and create token
      *

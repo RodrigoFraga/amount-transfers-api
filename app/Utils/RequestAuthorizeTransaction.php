@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Http;
  */
 class RequestAuthorizeTransaction
 {
-
     /**
      * @return bool
      */
@@ -26,7 +25,6 @@ class RequestAuthorizeTransaction
 
         // TODO: Notify reason for error to admins
         return false;
-
     }
 
 }

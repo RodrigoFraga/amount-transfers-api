@@ -20,7 +20,6 @@ class ClientAuth
      */
     public function handle (Request $request, Closure $next)
     {
-
         $user = User::find(Auth::id());
 
         switch ($user->role) {

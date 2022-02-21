@@ -6,6 +6,7 @@ use App\Enums\ExtractEnum;
 use App\Enums\TransactionEnum;
 use App\Enums\UserRoles;
 use App\Models\Store;
+use App\Models\Transaction;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -51,6 +52,41 @@ class TransactionTest extends TestCase
 
         $index = $this->json('POST', '/api/transaction');
         $index->assertStatus(403);
+    }
+
+    /**
+     * Test if it is possible to list transfers
+     *
+     * @return void
+     */
+    public function test_if_it_is_possible_to_list_transfers ()
+    {
+        $payer = User::factory()->hasWallet()->create();
+        $payee = Store::factory()->hasWallet()->create();
+
+        Transaction::factory()->count(10)->create([
+            'ownerable_type'  => get_class($payer),
+            'ownerable_id'    => $payer->id,
+            'user_id'         => $payer->id,
+            'wallet_payer_id' => $payer->wallet->id,
+            'wallet_payee_id' => $payee->wallet->id,
+            'scheduling_date' => Carbon::now()
+        ]);
+
+        $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:list', 'guard_name' => 'api'])]);
+
+        $payer->assignRole(UserRoles::USER);
+
+        Passport::actingAs($payer);
+
+
+        $response = $this->json('GET', '/api/transaction');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure(['data' => ['*' => ['scheduling_date', 'amount', 'status']]]);
+
+        $this->assertDatabaseCount('transactions', 10);
     }
 
     /**

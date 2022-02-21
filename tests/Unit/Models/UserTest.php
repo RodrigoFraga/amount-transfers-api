@@ -113,7 +113,7 @@ class UserTest extends TestCase
     {
         $hidden = ["password", "remember_token"];
 
-        $data   = User::factory()->create();
+        $data = User::factory()->create();
 
         $this->assertEquals($data->getHidden(), $hidden);
 

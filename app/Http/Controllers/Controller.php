@@ -21,21 +21,21 @@ class Controller extends BaseController
      * @param \Exception|null $exception
      * @return JsonResponse
      */
-    protected function error( $message = '', int $code = 500, \Exception $exception = null): JsonResponse
+    protected function error ($message = '', int $code = 500, \Exception $exception = null): JsonResponse
     {
-        $response = [ 'error' => true ];
+        $response = ['error' => true];
 
         if (is_string($message)) {
-            $message = ['error' => [$message ?: 'Ocorreu um erro na sua solicitação.']];
+            $message = ['error' => [$message ? : 'Ocorreu um erro na sua solicitação.']];
         }
 
-        $response['message'] = [ $message ];
+        $response['message'] = [$message];
 
         if ($exception) {
-            $error =  [
-                'code'    => $exception->getCode(),
-                'file'    => $exception->getFile(),
-                'line'    => $exception->getLine(),
+            $error = [
+                'code' => $exception->getCode(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine(),
             ];
 
             if (env('APP_ENV') == 'local') {
