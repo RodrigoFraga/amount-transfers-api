@@ -14,10 +14,9 @@ abstract class TransactionEnum
         'scheduled'       => 0,
         'finalized'       => 1,
         'divergent_info'  => 2,
-        'processing'      => 3,
-        'unauthorized'    => 4,
-        'canceled'        => 5,
-        'fail_processing' => 6,
+        'unauthorized'    => 3,
+        'canceled'        => 4,
+        'fail_processing' => 5,
     ];
 }
 

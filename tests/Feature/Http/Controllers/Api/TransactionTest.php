@@ -558,6 +558,140 @@ class TransactionTest extends TestCase
     }
 
     /**
+     * Test not duplicate completed transfer permission
+     *
+     * @return void
+     */
+    public function test_not_duplicate_completed_transfer_permission ()
+    {
+
+        $payer = User::factory()->hasWallet(['available_balance' => 1500])->create();
+        $payee = User::factory()->hasWallet()->create();
+
+        $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
+
+        $payer->assignRole(UserRoles::USER);
+
+        Passport::actingAs($payer);
+
+        $amount = 300;
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('transactions', [
+            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'amount'          => $amount,
+            'status'          => TransactionEnum::STATUS['finalized']
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 1200,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseCount('extracts', 2);
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(400)
+            ->assertJson(['message' => 'Duplicate transaction.']);
+
+        $this->assertDatabaseCount('transactions', 1);
+    }
+
+    /**
+     * Test duplicate transfer authorization with first canceled one
+     *
+     * @return void
+     */
+    public function test_duplicate_transfer_authorization_with_first_canceled_one ()
+    {
+        Config::set('appconfig.request_authorize_transaction.url', 'https://run.mocky.io/v3/860e9adf-6d6a-41cc-94e5-5786df5ac5b4');
+        Config::set('queue.default', 'sync');
+
+        $payer = User::factory()->hasWallet(['available_balance' => 1000])->create();
+        $payee = User::factory()->hasWallet()->create();
+
+        $role = Role::create(['name' => UserRoles::USER, 'guard_name' => 'api']);
+        $role->givePermissionTo([Permission::create(['name' => 'transfer:store', 'guard_name' => 'api'])]);
+
+        $payer->assignRole(UserRoles::USER);
+
+        Passport::actingAs($payer);
+
+        $amount = 150;
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('transactions', [
+            'user_id'         => $payer->id,
+            'wallet_payer_id' => $payer->wallet->id,
+            'wallet_payee_id' => $payee->wallet->id, 'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'amount'          => $amount,
+            'status'          => TransactionEnum::STATUS['unauthorized']
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 1000,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payee->id,
+            'available_balance' => 0,
+            'blocked_balance'   => 0,
+        ]);
+
+        Config::set('appconfig.request_authorize_transaction.url', env('REQUEST_AUTHORIZE_TRANSACTION_URL', 'https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6'));
+
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('transactions', [
+            'scheduling_date' => Carbon::now()->format('Y-m-d'),
+            'amount'          => $amount,
+            'status'          => TransactionEnum::STATUS['finalized']
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payer->id,
+            'available_balance' => 850,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseHas('wallets', [
+            'personable_type'   => User::class,
+            'personable_id'     => $payee->id,
+            'available_balance' => 150,
+            'blocked_balance'   => 0,
+        ]);
+
+        $this->assertDatabaseCount('transactions', 2);
+        $this->assertDatabaseCount('extracts', 2);
+
+
+        $response = $this->json('POST', '/api/transaction', ['amount' => $amount, 'wallet_payee_id' => $payee->wallet->id]);
+
+        $response->assertStatus(400)
+            ->assertJson(['message' => 'Duplicate transaction.']);
+
+        $this->assertDatabaseCount('transactions', 2);
+    }
+
+    /**
      * Test authorized transfer from store to user
      *
      * @return void
