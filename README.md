@@ -31,14 +31,28 @@ after install the source code open Terminal to use these command line:
 
 ### [Laravel Auditing](http://www.laravel-auditing.com/)
 
+
 ## Documents
+### Architecture
+![plot](./documents/architecture.drawio.png)
+
+### Database UML
+![plot](./documents/database.png)
+
+### Transaction Flow
+![plot](./documents/transaction_flow.drawio.png)
+
+### Diagram
+![plot](./documents/diagram.drawio.png)
+
 - [API Document](https://documenter.getpostman.com/view/328294/UVkjwyDr)
 - [Postman collection](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/AmountTransfers.postman_collection.json)
 - [Postman environment](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/AmountTransfers.postman_environment.json)
 - [Test planning](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/test_planning.pdf)
+- [Architecture](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/architecture.drawio.xml)
+- [Database UML](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/database.uml)
 - [Transaction Flow](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/transaction_flow.drawio.xml)
 - [Diagram](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/diagram.drawio.xml)
-- [Architecture](https://github.com/RodrigoFraga/amount-transfers-api/blob/main/documents/transaction_flow.drawio.xml)
 
 ## License
 

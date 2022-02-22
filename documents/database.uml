@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>7e3f2702-aefd-436e-9f17-e069b4a3215f.SCHEMA:transferdb</OriginalElement>
+  <nodes>
+    <node x="539.1333236683571" y="1156.4999999999998">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_refresh_tokens</node>
+    <node x="322.94155844155847" y="1141.1818181818178">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.personal_access_tokens</node>
+    <node x="1001.4999999999999" y="22.0">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.wallets</node>
+    <node x="1150.0" y="733.0">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.jobs</node>
+    <node x="-129.4545454545455" y="1494.2727272727273">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_personal_access_clients</node>
+    <node x="829.6680818454871" y="907.3636363636364">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.migrations</node>
+    <node x="55.31338737884221" y="1083.7727272727268">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.roles</node>
+    <node x="557.6333236683571" y="1351.2727272727273">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.password_resets</node>
+    <node x="464.9999999999999" y="0.0">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users</node>
+    <node x="-23.636363636363683" y="351.85714285714283">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.audits</node>
+    <node x="-314.4545454545455" y="1351.2727272727273">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.model_has_permissions</node>
+    <node x="322.94155844155847" y="841.9545454545452">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_access_tokens</node>
+    <node x="-188.7045454545455" y="1136.2727272727268">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.permissions</node>
+    <node x="113.5454545454545" y="1351.2727272727273">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.model_has_roles</node>
+    <node x="1356.1484352291443" y="733.0">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.failed_jobs</node>
+    <node x="1199.891500999727" y="346.2393795527213">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.extracts</node>
+    <node x="130.74979321475985" y="841.9545454545452">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_auth_codes</node>
+    <node x="890.6813909774437" y="333.5714285714286">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.transactions</node>
+    <node x="521.1333236683571" y="841.9545454545452">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_clients</node>
+    <node x="-100.4545454545455" y="1362.2727272727273">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.role_has_permissions</node>
+    <node x="686.4285714285714" y="351.85714285714283">7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.stores</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.model_has_permissions" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.permissions" relationship="REFERENCES">
+      <point x="0.0" y="-49.0" />
+      <point x="-217.4545454545455" y="1326.2727272727273" />
+      <point x="-104.2045454545455" y="1326.2727272727273" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.role_has_permissions" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.roles" relationship="REFERENCES">
+      <point x="48.5" y="-38.0" />
+      <point x="45.045454545454504" y="1326.2727272727273" />
+      <point x="139.8133873788422" y="1326.2727272727273" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.transactions" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.wallets" relationship="REFERENCES">
+      <point x="-1.4210854715202004E-14" y="-192.5" />
+      <point x="993.6813909774437" y="278.0" />
+      <point x="1050.25" y="278.0" />
+      <point x="-48.75" y="104.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.stores" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="0.0" y="-126.5" />
+      <point x="767.9285714285714" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_clients" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="0.0" y="-137.5" />
+      <point x="624.6333236683571" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.transactions" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="-68.66666666666669" y="-192.5" />
+      <point x="925.014724310777" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.role_has_permissions" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.permissions" relationship="REFERENCES">
+      <point x="-48.5" y="-38.0" />
+      <point x="-51.954545454545496" y="1326.2727272727273" />
+      <point x="-104.2045454545455" y="1326.2727272727273" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_access_tokens" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="0.0" y="-115.5" />
+      <point x="408.44155844155847" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.oauth_auth_codes" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="0.0" y="-82.5" />
+      <point x="213.24979321475985" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.model_has_roles" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.roles" relationship="REFERENCES">
+      <point x="0.0" y="-49.0" />
+      <point x="198.0454545454545" y="1326.2727272727273" />
+      <point x="139.8133873788422" y="1326.2727272727273" />
+      <point x="0.0" y="82.5" />
+    </edge>
+    <edge source="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.audits" target="7e3f2702-aefd-436e-9f17-e069b4a3215f.TABLE:transferdb.users" relationship="REFERENCES">
+      <point x="0.0" y="-170.5" />
+      <point x="68.86363636363632" y="278.0" />
+      <point x="564.4999999999999" y="278.0" />
+      <point x="0.0" y="126.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.55" showDependencies="false" x="893.0" y="556.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Columns</Category>
+    <Category>Comments</Category>
+    <Category>Key columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+
